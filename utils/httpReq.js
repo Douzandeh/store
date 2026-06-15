@@ -2,28 +2,26 @@ const BASE_URL = "https://fakestoreapi.com";
 
 const postData = async (path, data) => {
   try {
-    const response = await fetch(`${BASE_URL}/${path}`, {
+    const respocse = await fetch(`${BASE_URL}/${path}`, {
       method: "POST",
       body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
     });
-    const json = await response.json();
+    const json = await respocse.json();
     return json;
   } catch (error) {
-    alert("An error occurred");
+    alert("An error occured!");
   }
 };
 
 const getData = async (path) => {
   try {
-    const response = await fetch(`${BASE_URL}/${path}`);
-    const json = await response.json();
+    const respocse = await fetch(`${BASE_URL}/${path}`);
+    const json = await respocse.json();
     return json;
   } catch (error) {
-    alert("An error occurred");
+    alert("An error occyred!");
   }
 };
 
-export { postData, getData };
+export { postData , getData };

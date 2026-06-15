@@ -18,7 +18,7 @@ const validateForm = (username, password) => {
     return true;
   } else if (!usernameResult) {
     alert("Username is not valid!");
-  } else if(!passwordResult){
+  } else if (!passwordResult) {
     alert("Password must be between 4 and 20 characters!");
   }
 };

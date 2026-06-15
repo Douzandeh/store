@@ -2,15 +2,18 @@ import { getCookie } from "./utils/cookie.js";
 import { getData } from "./utils/httpReq.js";
 import { shortenText } from "./utils/stringFunc.js";
 
+let allProducts = null;
+let search = "";
+let category = "all";
+
 const loginButton = document.getElementById("login");
 const dashboardButton = document.getElementById("dashboard");
 const mainContent = document.getElementById("products");
 const searchButton = document.querySelector("button");
 const inputBox = document.querySelector("input");
+const listItems = document.querySelectorAll("li");
 
-let allProducts = null;
-
-const showProducts = (products) => {
+const renderProducts = (products) => {
   mainContent.innerHTML = "";
 
   products.forEach((product) => {
@@ -50,18 +53,42 @@ const init = async () => {
   }
 
   allProducts = await getData("products");
-  showProducts(allProducts);
+  renderProducts(allProducts);
+};
+
+const filterProducts = () => {
+  const filteredProducts = allProducts.filter((product) => {
+    if (category === "all") {
+      return product.title.toLowerCase().includes(search);
+    } else {
+      return (
+        product.title.toLowerCase().includes(search) &&
+        product.category.toLowerCase() === category
+      );
+    }
+  });
+  renderProducts(filteredProducts);
 };
 
 const searchHandler = () => {
-  const query = inputBox.value.trim().toLowerCase();
+  search = inputBox.value.trim().toLowerCase();
+  filterProducts();
+};
 
-  if (!query) showProducts(allProducts);
-  const filteredProducts = allProducts.filter((product) =>
-    product.title.toLowerCase().includes(query),
-  );
-  showProducts(filteredProducts);
+const filterHandler = (event) => {
+  category = event.target.innerText.toLowerCase();
+
+  listItems.forEach((li) => {
+    if (li.innerText.toLowerCase() === category) {
+      li.className = "selected";
+    } else {
+      li.className = "";
+    }
+  });
+
+  filterProducts();
 };
 
 document.addEventListener("DOMContentLoaded", init);
 searchButton.addEventListener("click", searchHandler);
+listItems.forEach((li) => li.addEventListener("click", filterHandler));

@@ -15,4 +15,4 @@ const getCookie = () => {
   }
 };
 
-export { setCookie , getCookie };
+export { setCookie, getCookie };
