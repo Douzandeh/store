@@ -32,7 +32,3 @@ A modern and responsive e-commerce frontend built with vanilla JavaScript, HTML,
 - **Fake Store API** (`https://fakestoreapi.com`)
 - **Font Awesome** icons
 - **CSS Variables** for theming
-
-
-
-## 🏗️ Project Structure
